@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
+apply(rootProject.file("ktlint.gradle.kts"))
 
 android {
     defaultConfig {
@@ -38,6 +39,10 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.material)
     implementation(libs.androidx.constraintlayout)
+
+//    implementation(libs.ktlint)
+//    implementation(libs.detekt)
+
     testImplementation(libs.test.junit)
     androidTestImplementation(libs.test.ext.junit)
     androidTestImplementation(libs.test.espresso)

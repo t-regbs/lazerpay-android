@@ -1,0 +1,25 @@
+name: Android Build
+
+on: [pull_request, push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Build the app
+        run: ./gradlew build
+
+      - name: Static Analysis
+        run: ./gradlew ktlint

@@ -35,4 +35,6 @@ test_espresso = { module = "androidx.test.espresso:espresso-core", version.ref =
 
 # Quality
 ktlint = { module = "com.pinterest:ktlint", version.ref = "ktlint" }
-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+
+[plugins]
+detekt-gradle = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
