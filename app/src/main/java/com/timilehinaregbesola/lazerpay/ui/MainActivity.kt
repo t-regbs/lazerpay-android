@@ -1,4 +1,4 @@
-package com.timilehinaregbesola.lazerpay
+package com.timilehinaregbesola.lazerpay.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
