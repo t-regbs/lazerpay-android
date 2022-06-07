@@ -13,6 +13,7 @@ data class LazerPayData(
 ) {
     val isProd = !publicKey.contains("test")
 
+    // Map to request
     fun toRequestMap(): Map<String, Any> {
         return buildMap<String, Any> {
             "publicKey" to publicKey
