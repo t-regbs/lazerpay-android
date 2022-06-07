@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Lazerpayandroid"
         tools:targetApi="31" >
         <activity
-            android:name=".LazerpayActivity"
+            android:name=".ui.LazerpayActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
