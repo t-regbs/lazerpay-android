@@ -11,7 +11,5 @@ class LazerpayActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLazerpayBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
     }
 }
