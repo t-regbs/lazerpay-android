@@ -13,11 +13,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        binding.btnLazerpay.setOnClickListener{goToLazerpayWebView()}
+        binding.btnLazerpay.setOnClickListener{ goToLazerpayWebView() }
     }
 
-    private fun goToLazerpayWebView(){
+    private fun goToLazerpayWebView() {
         val i = Intent(applicationContext, LazerpayActivity::class.java)
         startActivity(i)
     }
