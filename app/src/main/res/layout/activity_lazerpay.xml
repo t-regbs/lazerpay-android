@@ -6,4 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".ui.LazerpayActivity">
 
+    <WebView
+        android:id="@+id/webViewLzp"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/pbQuote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationZ="4dp"
+        android:indeterminate="true"
+        app:indicatorColor="@color/lazerpay_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
