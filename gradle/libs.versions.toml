@@ -11,6 +11,7 @@ material = "1.6.0"
 constraint = "2.1.4"
 corektx = "1.7.0"
 appcompat = "1.4.1"
+webkit = "1.4.0"
 
 # Test
 test_junit = "4.13.2"
@@ -27,6 +28,7 @@ androidx_material = { module = "com.google.android.material:material", version.r
 androidx_corektx = { module = "androidx.core:core-ktx", version.ref = "corektx" }
 androidx_constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraint" }
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx_webkit = { module = "androidx.webkit:webkit", version.ref = "webkit" }
 
 # Test
 test_junit = { module = "junit:junit", version.ref = "test_junit" }

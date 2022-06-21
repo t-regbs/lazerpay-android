@@ -38,6 +38,7 @@ dependencies {
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.material)
+    implementation(libs.androidx.webkit)
     implementation(libs.androidx.constraintlayout)
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.4.0")
