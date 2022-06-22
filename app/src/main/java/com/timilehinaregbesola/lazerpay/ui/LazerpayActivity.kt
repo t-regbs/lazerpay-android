@@ -12,13 +12,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.webkit.WebViewFeature
 import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.timilehinaregbesola.lazerpay.databinding.ActivityLazerpayBinding
-import com.timilehinaregbesola.lazerpay.model.EventType
+import com.timilehinaregbesola.lazerpay.model.CloseEvent
+import com.timilehinaregbesola.lazerpay.model.CopyEvent
+import com.timilehinaregbesola.lazerpay.model.FetchEvent
 import com.timilehinaregbesola.lazerpay.model.LazerPayCurrency
 import com.timilehinaregbesola.lazerpay.model.LazerPayData
 import com.timilehinaregbesola.lazerpay.model.LazerPayEvent
+import com.timilehinaregbesola.lazerpay.model.LazerPayEventType
 import com.timilehinaregbesola.lazerpay.model.LazerPayHtml
 import com.timilehinaregbesola.lazerpay.model.LazerPayResult
+import com.timilehinaregbesola.lazerpay.model.SuccessEvent
 
 class LazerpayActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLazerpayBinding
@@ -52,30 +58,35 @@ class LazerpayActivity : AppCompatActivity() {
                 binding.pbQuote.visibility = View.GONE
             }
         }
+        val metadata = """{
+            "product_id": "324324324324"
+        }
+        """.trimIndent()
         val data = LazerPayData(
             publicKey = "pk_test_LIfI1h8BvlW25UMxGQQCzgSula1MnrdVY7T5TcbOEKIh5uue36",
             name = "Regbs",
             email = "regbs@gmail.com",
-            amount = "500",
+            amount = "45000",
             businessLogo = "https://securecdn.pymnts.com/wp-content/uploads/2021/12/stablecoins.jpg",
             currency = LazerPayCurrency.NGN,
-            reference = "W6b8hV55l0435t3545413"
+            reference = "W2b8hV55l0435t354541",
         )
         webView.loadData(LazerPayHtml().buildLazerPayHtml(data), "text/html", "base64")
     }
 
     private fun handleCheckoutResponse(event: LazerPayEvent) {
-        when (event.type) {
-            EventType.ON_SUCCESS -> {
-                closeWithResult(LazerPayResult.Success)
+        when (event) {
+            is SuccessEvent -> {
+                val data = LazerPayResult.Success(event.data)
+                closeWithResult(data)
             }
-            EventType.ON_CLOSE -> {
+            is CloseEvent -> {
                 closeWithResult(LazerPayResult.Close)
             }
-            EventType.ON_FETCH -> {
-                closeWithResult(LazerPayResult.Initialize)
+            is FetchEvent -> {
+//                closeWithResult(LazerPayResult.Initialize)
             }
-            EventType.ON_COPY -> {
+            is CopyEvent -> {
                 // Show snackbar or toast saying "Address copied"
             }
         }
@@ -98,8 +109,17 @@ class LazerpayActivity : AppCompatActivity() {
         @JavascriptInterface
         fun messageFromWeb(dataStr: String) {
             Log.i(TAG, dataStr)
+
+            val eventAdapterFactory =
+                PolymorphicJsonAdapterFactory.of(LazerPayEvent::class.java, "type")
+                    .withSubtype(CloseEvent::class.java, LazerPayEventType.close.value)
+                    .withSubtype(FetchEvent::class.java, LazerPayEventType.fetch.value)
+                    .withSubtype(SuccessEvent::class.java, LazerPayEventType.success.value)
+                    .withSubtype(CopyEvent::class.java, LazerPayEventType.copy.value)
+
             val eventAdapter = Moshi.Builder()
-//                    .add(KotlinJsonAdapterFactory())
+                .add(eventAdapterFactory)
+                .add(KotlinJsonAdapterFactory())
                 .build()
                 .adapter(LazerPayEvent::class.java)
             try {

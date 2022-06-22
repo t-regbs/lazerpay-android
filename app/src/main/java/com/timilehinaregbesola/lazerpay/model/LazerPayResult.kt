@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 sealed class LazerPayResult : Parcelable {
     @Parcelize
-    object Success : LazerPayResult()
+    data class Success(val data: SuccessData) : LazerPayResult()
 
     @Parcelize
     data class Error(val exception: Throwable) : LazerPayResult()
@@ -14,5 +14,5 @@ sealed class LazerPayResult : Parcelable {
     object Close : LazerPayResult()
 
     @Parcelize
-    object Initialize : LazerPayResult()
+    data class Initialize(val data: InitializeData) : LazerPayResult()
 }
