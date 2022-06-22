@@ -20,15 +20,14 @@ class LazerPayHtml {
             </head>
             <body onload="setupLazerCheckout()" style="border-radius: 20px; background-color:#fff;height:100vh;overflow: hidden; ">
                 <script type="text/javascript">
+                    window.androidObj = function AndroidClass(){};
                     // Send callback to Android
-                      function sendMessage(message) {
-                          lazerpayClient.postMessage(JSON.stringify(message))
+                      window.androidObj.sendMessage = function(message) {
+                          lazerpayClient.messageFromWeb(JSON.stringify(message))
                       }
                     // Send raw callback to dart JSMessageClient
-                      function sendMessageRaw(message) {
-                          if (window.LazerPayClientInterface && window.LazerPayClientInterface.postMessage) {
-                              LazerPayClientInterface.postMessage(message);
-                          }
+                      window.androidObj.sendMessageRaw = function(message) {
+                          lazerpayClient.rawMessageFromWeb(message)
                       }
                     
                     // Override JS Fetch
@@ -39,7 +38,7 @@ class LazerPayHtml {
                         // side-effect
                         out.then(async (ok) => {
                           var data = await ok.clone().json();
-                          sendMessage({
+                          window.androidObj.sendMessage({
                               "type": "ON_FETCH",
                               "data": { ...data },
                           })
@@ -52,12 +51,12 @@ class LazerPayHtml {
                         // Override default JS Console function
                         console._log_old = console.log
                         console.log = function(msg) {
-                            sendMessageRaw(msg);
+                            window.androidObj.sendMessageRaw(msg);
                             console._log_old(msg);
                         }
                         console._error_old = console.error
                         console.error = function(msg) {
-                            sendMessageRaw(msg);
+                            window.androidObj.sendMessageRaw(msg);
                             console._error_old(msg);
                         }
                          LazerCheckout({
@@ -69,15 +68,15 @@ class LazerPayHtml {
                           acceptPartialPayment:${params.acceptPartialPayment},
                           currency: "${params.currency.name}",
                           $businessLogoString
-                          $metadataString          ,
-                          onClose: (data) => sendMessage({
+                          $metadataString,
+                          onClose: (data) => window.androidObj.sendMessage({
                                 "type": "ON_CLOSE",
                               }),
-                          onSuccess: (data) => sendMessage({
+                          onSuccess: (data) => window.androidObj.sendMessage({
                                 "type": "ON_SUCCESS",
                                 "data": { ...data },
                               }),
-                          onError: (data) => sendMessage({
+                          onError: (data) => window.androidObj.sendMessage({
                                 "type": "ON_ERROR",
                                 "data": { ...data },
                               }),
@@ -86,7 +85,7 @@ class LazerPayHtml {
                       window.addEventListener("click", (event) => {
                       let path = event.composedPath()[0].innerHTML;
                       if (path == "Copied" || path == "Copy")
-                          sendMessage({"type": "ON_COPY", "data": path}) 
+                          window.androidObj.sendMessage({"type": "ON_COPY", "data": path}) 
                       });
                     }
                 </script>

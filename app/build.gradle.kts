@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 apply(rootProject.file("ktlint.gradle.kts"))
 
@@ -46,6 +48,11 @@ dependencies {
 
 //    implementation(libs.ktlint)
 //    implementation(libs.detekt)
+
+    implementation(libs.moshi)
+    implementation(libs.moshi.adapters)
+//    implementation(Libs.moshiLazyAdapters)
+    kapt(libs.moshi.codegen)
 
     testImplementation(libs.test.junit)
     androidTestImplementation(libs.test.ext.junit)
