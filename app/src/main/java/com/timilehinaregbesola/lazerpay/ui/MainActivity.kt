@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun goToLazerpayWebView() {
+
         val i = Intent(applicationContext, LazerpayActivity::class.java)
         startActivity(i)
     }

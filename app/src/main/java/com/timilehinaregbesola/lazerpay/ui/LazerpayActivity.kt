@@ -10,6 +10,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.webkit.WebViewFeature
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
@@ -87,7 +88,7 @@ class LazerpayActivity : AppCompatActivity() {
 //                closeWithResult(LazerPayResult.Initialize)
             }
             is CopyEvent -> {
-                // Show snackbar or toast saying "Address copied"
+                Snackbar.make(binding.root, "Copied", 2).show()
             }
         }
     }

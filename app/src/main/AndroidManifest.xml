@@ -15,7 +15,8 @@
         tools:targetApi="31" >
         <activity
             android:name=".ui.LazerpayActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"

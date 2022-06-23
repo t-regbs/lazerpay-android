@@ -51,6 +51,8 @@ dependencies {
 
     implementation(libs.moshi)
     implementation(libs.moshi.adapters)
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
 //    implementation(Libs.moshiLazyAdapters)
     kapt(libs.moshi.codegen)
 
