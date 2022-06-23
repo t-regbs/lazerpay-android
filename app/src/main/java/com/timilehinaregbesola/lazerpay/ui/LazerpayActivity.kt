@@ -139,6 +139,7 @@ class LazerpayActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "LazerpayActivity"
         private const val JS_OBJECT = "lazerpayClient"
-        private const val EXTRA_TRANSACTION_RESULT = "transaction_result"
+        const val EXTRA_TRANSACTION_RESULT = "transaction_result"
+        const val EXTRA_DATA = "lazerpay_data"
     }
 }
