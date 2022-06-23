@@ -66,7 +66,7 @@ class LazerPayHtml {
                           key: "${params.publicKey}",
                           reference: "${params.reference}",
                           acceptPartialPayment:${params.acceptPartialPayment},
-                          currency: "${params.currency.name}",
+                          currency: "${params.currency!!.name}",
                           $businessLogoString
                           $metadataString,
                           onClose: (data) => window.androidObj.sendMessage({
