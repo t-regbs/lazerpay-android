@@ -8,7 +8,9 @@ import android.view.View
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.webkit.WebViewCompat
 import androidx.webkit.WebViewFeature
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.moshi.JsonDataException
@@ -16,10 +18,10 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.timilehinaregbesola.lazerpay.databinding.ActivityLazerpayBinding
+import com.timilehinaregbesola.lazerpay.exception.MissingWebViewException
 import com.timilehinaregbesola.lazerpay.model.CloseEvent
 import com.timilehinaregbesola.lazerpay.model.CopyEvent
 import com.timilehinaregbesola.lazerpay.model.FetchEvent
-import com.timilehinaregbesola.lazerpay.model.LazerPayCurrency
 import com.timilehinaregbesola.lazerpay.model.LazerPayData
 import com.timilehinaregbesola.lazerpay.model.LazerPayEvent
 import com.timilehinaregbesola.lazerpay.model.LazerPayEventType
@@ -29,9 +31,16 @@ import com.timilehinaregbesola.lazerpay.model.SuccessEvent
 
 class LazerpayActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLazerpayBinding
+    private val viewModel: LazerpayViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (WebViewCompat.getCurrentWebViewPackage(this) == null) {
+            closeWithError(MissingWebViewException())
+            return
+        }
+
         binding = ActivityLazerpayBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -59,19 +68,9 @@ class LazerpayActivity : AppCompatActivity() {
                 binding.pbQuote.visibility = View.GONE
             }
         }
-        val metadata = """{
-            "product_id": "324324324324"
-        }
-        """.trimIndent()
-        val data = LazerPayData(
-            publicKey = "pk_test_LIfI1h8BvlW25UMxGQQCzgSula1MnrdVY7T5TcbOEKIh5uue36",
-            name = "Regbs",
-            email = "regbs@gmail.com",
-            amount = "45000",
-            businessLogo = "https://securecdn.pymnts.com/wp-content/uploads/2021/12/stablecoins.jpg",
-            currency = LazerPayCurrency.NGN,
-            reference = "W2b8hV55l0435t354541",
-        )
+
+        val data = intent.getParcelableExtra<LazerPayData>(EXTRA_DATA)
+            ?: error("Lazerpay data not found")
         webView.loadData(LazerPayHtml().buildLazerPayHtml(data), "text/html", "base64")
     }
 
@@ -79,10 +78,10 @@ class LazerpayActivity : AppCompatActivity() {
         when (event) {
             is SuccessEvent -> {
                 val data = LazerPayResult.Success(event.data)
-                closeWithResult(data)
+                viewModel.updateState(data)
             }
             is CloseEvent -> {
-                closeWithResult(LazerPayResult.Close)
+                closeWithResult(viewModel.lazerEventState.value)
             }
             is FetchEvent -> {
 //                closeWithResult(LazerPayResult.Initialize)
@@ -98,6 +97,10 @@ class LazerpayActivity : AppCompatActivity() {
         resultData.putExtra(EXTRA_TRANSACTION_RESULT, data)
         setResult(RESULT_OK, resultData)
         finish()
+    }
+
+    private fun closeWithError(exception: Throwable) {
+        closeWithResult(LazerPayResult.Error(exception))
     }
 
     override fun onDestroy() {
@@ -140,6 +143,7 @@ class LazerpayActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "LazerpayActivity"
         private const val JS_OBJECT = "lazerpayClient"
-        private const val EXTRA_TRANSACTION_RESULT = "transaction_result"
+        const val EXTRA_TRANSACTION_RESULT = "transaction_result"
+        const val EXTRA_DATA = "lazerpay_data"
     }
 }

@@ -42,19 +42,17 @@ dependencies {
     implementation(libs.androidx.material)
     implementation(libs.androidx.webkit)
     implementation(libs.androidx.constraintlayout)
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-
+    implementation(libs.androidx.activity.ktx)
 //    implementation(libs.ktlint)
 //    implementation(libs.detekt)
 
     implementation(libs.moshi)
     implementation(libs.moshi.adapters)
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
-//    implementation(Libs.moshiLazyAdapters)
     kapt(libs.moshi.codegen)
+
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
 
     testImplementation(libs.test.junit)
     androidTestImplementation(libs.test.ext.junit)
