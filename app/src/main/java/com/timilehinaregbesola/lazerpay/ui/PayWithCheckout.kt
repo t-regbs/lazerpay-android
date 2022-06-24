@@ -8,7 +8,7 @@ import com.timilehinaregbesola.lazerpay.model.LazerPayData
 import com.timilehinaregbesola.lazerpay.model.LazerPayResult
 
 class PayWithCheckout : ActivityResultContract<LazerPayData, LazerPayResult>() {
-    override fun createIntent(context: Context, input: LazerPayData?): Intent {
+    override fun createIntent(context: Context, input: LazerPayData): Intent {
         return Intent(context, LazerpayActivity::class.java).apply {
             putExtra(LazerpayActivity.EXTRA_DATA, input)
         }

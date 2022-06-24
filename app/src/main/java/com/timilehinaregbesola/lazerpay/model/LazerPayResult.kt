@@ -11,9 +11,6 @@ sealed class LazerPayResult : Parcelable {
     data class Error(val exception: Throwable) : LazerPayResult()
 
     @Parcelize
-    object Close : LazerPayResult()
-
-    @Parcelize
     object Cancel : LazerPayResult()
 
     @Parcelize

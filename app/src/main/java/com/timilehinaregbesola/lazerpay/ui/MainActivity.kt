@@ -18,6 +18,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         goToLazerpayWebView()
+
+        // There is a bug here
 //        binding.btnLazerpay.setOnClickListener { goToLazerpayWebView() }
     }
 
@@ -52,12 +54,12 @@ class MainActivity : AppCompatActivity() {
             activity = this,
             name = "Frankie De Jong",
             email = "zuzuzeh@mail.com",
-            amount = "50000",
+            amount = "5000",
             publicKey = "pk_test_LIfI1h8BvlW25UMxGQQCzgSula1MnrdVY7T5TcbOEKIh5uue36"
         )
 
         lazerpayBuilder.apply {
-            reference("X2b8hV55l0435t354541")
+            reference("Kb8hV55l0435t354541")
             businessLogo("https://securecdn.pymnts.com/wp-content/uploads/2021/12/stablecoins.jpg")
         }
 

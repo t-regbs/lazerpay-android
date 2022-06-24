@@ -8,6 +8,7 @@ import android.view.View
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.webkit.WebViewCompat
 import androidx.webkit.WebViewFeature
@@ -30,6 +31,7 @@ import com.timilehinaregbesola.lazerpay.model.SuccessEvent
 
 class LazerpayActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLazerpayBinding
+    private val viewModel: LazerpayViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,10 +78,10 @@ class LazerpayActivity : AppCompatActivity() {
         when (event) {
             is SuccessEvent -> {
                 val data = LazerPayResult.Success(event.data)
-                closeWithResult(data)
+                viewModel.updateState(data)
             }
             is CloseEvent -> {
-                closeWithResult(LazerPayResult.Close)
+                closeWithResult(viewModel.lazerEventState.value)
             }
             is FetchEvent -> {
 //                closeWithResult(LazerPayResult.Initialize)
@@ -87,7 +89,6 @@ class LazerpayActivity : AppCompatActivity() {
             is CopyEvent -> {
                 Snackbar.make(binding.root, "Copied", 2).show()
             }
-            else -> {}
         }
     }
 

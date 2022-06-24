@@ -37,9 +37,8 @@ class LazerPayCheckout private constructor(
         activity.registerForActivityResult(PayWithCheckout(), resultRegistry) { lazerPayResult ->
             when (lazerPayResult) {
                 LazerPayResult.Cancel -> resultListener.onCancelled()
-                LazerPayResult.Close -> TODO()
                 is LazerPayResult.Error -> resultListener.onError(lazerPayResult.exception)
-                is LazerPayResult.Initialize -> TODO()
+                is LazerPayResult.Initialize -> {}
                 is LazerPayResult.Success -> resultListener.onSuccess(lazerPayResult.data)
             }
         }.launch(lazerpayData)
