@@ -3,27 +3,28 @@ package com.timilehinaregbesola.lazerpay.ui
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.timilehinaregbesola.lazerpay.LazerPayCheckout
 import com.timilehinaregbesola.lazerpay.LazerPayResultListener
+import com.timilehinaregbesola.lazerpay.LazerPaySdk
 import com.timilehinaregbesola.lazerpay.databinding.ActivityMainBinding
 import com.timilehinaregbesola.lazerpay.model.SuccessData
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var lazerPaySdk: LazerPaySdk
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        goToLazerpayWebView()
+        setupLazerPaySdk()
 
         // There is a bug here
-//        binding.btnLazerpay.setOnClickListener { goToLazerpayWebView() }
+        binding.btnLazerpay.setOnClickListener { lazerPaySdk.charge() }
     }
 
-    private fun goToLazerpayWebView() {
+    private fun setupLazerPaySdk() {
         val resultListener = object : LazerPayResultListener {
             override fun onSuccess(result: SuccessData) {
                 Toast.makeText(
@@ -49,8 +50,7 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
         }
-
-        val lazerpayBuilder = LazerPayCheckout.Builder(
+        val lazerpayBuilder = LazerPaySdk.Builder(
             activity = this,
             name = "Frankie De Jong",
             email = "zuzuzeh@mail.com",
@@ -59,11 +59,10 @@ class MainActivity : AppCompatActivity() {
         )
 
         lazerpayBuilder.apply {
-            reference("Kb8hV55l0435t354541")
+            reference("Kb8hV55l0435t354540")
             businessLogo("https://securecdn.pymnts.com/wp-content/uploads/2021/12/stablecoins.jpg")
         }
-
-        val checkout = lazerpayBuilder.build()
-        checkout.charge(resultListener)
+        lazerPaySdk = lazerpayBuilder.build()
+        lazerPaySdk.initialize(resultListener)
     }
 }

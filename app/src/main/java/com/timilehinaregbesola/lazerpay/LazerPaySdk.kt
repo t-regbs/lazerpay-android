@@ -1,5 +1,6 @@
 package com.timilehinaregbesola.lazerpay
 
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.ActivityResultRegistry
 import androidx.appcompat.app.AppCompatActivity
 import com.timilehinaregbesola.lazerpay.model.LazerPayCurrency
@@ -7,7 +8,7 @@ import com.timilehinaregbesola.lazerpay.model.LazerPayData
 import com.timilehinaregbesola.lazerpay.model.LazerPayResult
 import com.timilehinaregbesola.lazerpay.ui.PayWithCheckout
 
-class LazerPayCheckout private constructor(
+class LazerPaySdk private constructor(
     private val activity: AppCompatActivity,
     private val resultRegistry: ActivityResultRegistry,
     private val publicKey: String,
@@ -32,16 +33,21 @@ class LazerPayCheckout private constructor(
             reference,
             metadata
         )
+    private var launcher: ActivityResultLauncher<LazerPayData>? = null
 
-    fun charge(resultListener: LazerPayResultListener) {
-        activity.registerForActivityResult(PayWithCheckout(), resultRegistry) { lazerPayResult ->
+    fun initialize(resultListener: LazerPayResultListener) {
+        launcher = activity.registerForActivityResult(PayWithCheckout(), resultRegistry) { lazerPayResult ->
             when (lazerPayResult) {
                 LazerPayResult.Cancel -> resultListener.onCancelled()
                 is LazerPayResult.Error -> resultListener.onError(lazerPayResult.exception)
                 is LazerPayResult.Initialize -> {}
                 is LazerPayResult.Success -> resultListener.onSuccess(lazerPayResult.data)
             }
-        }.launch(lazerpayData)
+        }
+    }
+
+    fun charge() {
+        launcher?.launch(lazerpayData)
     }
 
     class Builder(
@@ -89,8 +95,8 @@ class LazerPayCheckout private constructor(
             return this
         }
 
-        fun build(): LazerPayCheckout {
-            return LazerPayCheckout(
+        fun build(): LazerPaySdk {
+            return LazerPaySdk(
                 activity,
                 activityResultRegistry,
                 publicKey,
