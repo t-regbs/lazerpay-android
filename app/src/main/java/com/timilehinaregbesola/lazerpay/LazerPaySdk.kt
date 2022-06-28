@@ -1,5 +1,6 @@
 package com.timilehinaregbesola.lazerpay
 
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.ActivityResultRegistry
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import com.timilehinaregbesola.lazerpay.model.LazerPayCurrency
 import com.timilehinaregbesola.lazerpay.model.LazerPayData
 import com.timilehinaregbesola.lazerpay.model.LazerPayResult
 import com.timilehinaregbesola.lazerpay.ui.PayWithCheckout
+import java.lang.IllegalStateException
 
 class LazerPaySdk private constructor(
     private val activity: AppCompatActivity,
@@ -36,13 +38,17 @@ class LazerPaySdk private constructor(
     private var launcher: ActivityResultLauncher<LazerPayData>? = null
 
     fun initialize(resultListener: LazerPayResultListener) {
-        launcher = activity.registerForActivityResult(PayWithCheckout(), resultRegistry) { lazerPayResult ->
-            when (lazerPayResult) {
-                LazerPayResult.Cancel -> resultListener.onCancelled()
-                is LazerPayResult.Error -> resultListener.onError(lazerPayResult.exception)
-                is LazerPayResult.Initialize -> {}
-                is LazerPayResult.Success -> resultListener.onSuccess(lazerPayResult.data)
+        try {
+            launcher = activity.registerForActivityResult(PayWithCheckout(), resultRegistry) { lazerPayResult ->
+                when (lazerPayResult) {
+                    LazerPayResult.Cancel -> resultListener.onCancelled()
+                    is LazerPayResult.Error -> resultListener.onError(lazerPayResult.exception)
+                    is LazerPayResult.Initialize -> {}
+                    is LazerPayResult.Success -> resultListener.onSuccess(lazerPayResult.data)
+                }
             }
+        } catch (e: IllegalStateException) {
+            Toast.makeText(activity, "initialize() cannot be called while current state is RESUMED\n" + e.message, Toast.LENGTH_LONG).show()
         }
     }
 

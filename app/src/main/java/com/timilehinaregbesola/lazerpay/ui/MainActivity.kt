@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
 
         setupLazerPaySdk()
 
-        // There is a bug here
         binding.btnLazerpay.setOnClickListener { lazerPaySdk.charge() }
     }
 
