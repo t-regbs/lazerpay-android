@@ -14,7 +14,7 @@ data class LazerPayInitialize(
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class InitializeData(
-    val `data`: List<Data>?,
+//    val `data`: List<Data>?,
     val message: String?,
     val status: String?,
     val statusCode: Int?

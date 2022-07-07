@@ -12,7 +12,4 @@ sealed class LazerPayResult : Parcelable {
 
     @Parcelize
     object Cancel : LazerPayResult()
-
-    @Parcelize
-    data class Initialize(val data: InitializeData) : LazerPayResult()
 }
