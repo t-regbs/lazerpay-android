@@ -13,5 +13,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "lazerpay-android"
-include(":app")
+include(":example")
 enableFeaturePreview("VERSION_CATALOGS")
+include(":lazerpay-android")

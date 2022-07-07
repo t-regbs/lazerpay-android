@@ -1,27 +1,27 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("kotlin-parcelize")
 }
-apply(rootProject.file("ktlint.gradle.kts"))
 
 android {
     defaultConfig {
-        applicationId = "com.timilehinaregbesola.lazerpay"
-        versionCode = 1
-        versionName = "1.0"
-
         compileSdk = Integer.parseInt(libs.versions.android.compile.sdk.get())
         minSdk = Integer.parseInt(libs.versions.android.min.sdk.get())
         targetSdk = Integer.parseInt(libs.versions.android.target.sdk.get())
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
-        getByName("release") {
+        release {
             isMinifyEnabled = false
-            proguardFiles("proguard-android.txt", "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -37,14 +37,13 @@ android {
 }
 
 dependencies {
+
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.material)
     implementation(libs.androidx.webkit)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.activity.ktx)
-//    implementation(libs.ktlint)
-//    implementation(libs.detekt)
 
     implementation(libs.moshi)
     implementation(libs.moshi.adapters)

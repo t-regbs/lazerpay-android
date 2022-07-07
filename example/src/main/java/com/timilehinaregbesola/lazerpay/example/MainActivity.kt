@@ -1,4 +1,4 @@
-package com.timilehinaregbesola.lazerpay.ui
+package com.timilehinaregbesola.lazerpay.example
 
 import android.os.Bundle
 import android.widget.Toast
