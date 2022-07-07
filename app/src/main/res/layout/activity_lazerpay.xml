@@ -23,6 +23,8 @@
         android:layout_height="wrap_content"
         android:translationZ="4dp"
         android:indeterminate="true"
+        app:indicatorSize="30dp"
+        app:trackThickness="2dp"
         app:indicatorColor="@color/lazerpay_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

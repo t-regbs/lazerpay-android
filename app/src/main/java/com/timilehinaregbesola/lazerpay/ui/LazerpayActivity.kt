@@ -19,6 +19,7 @@ import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.timilehinaregbesola.lazerpay.databinding.ActivityLazerpayBinding
 import com.timilehinaregbesola.lazerpay.exception.MissingWebViewException
+import com.timilehinaregbesola.lazerpay.exception.UnsupportedWebChannelException
 import com.timilehinaregbesola.lazerpay.model.CloseEvent
 import com.timilehinaregbesola.lazerpay.model.CopyEvent
 import com.timilehinaregbesola.lazerpay.model.FetchEvent
@@ -50,8 +51,7 @@ class LazerpayActivity : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     private fun setupTransactionWebView() {
         if (!WebViewFeature.isFeatureSupported(WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL)) {
-            // TODO: Finish with error result if web message channels aren't supported
-
+            closeWithError(UnsupportedWebChannelException())
             return
         }
 

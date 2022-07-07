@@ -43,7 +43,6 @@ class LazerPaySdk private constructor(
                 when (lazerPayResult) {
                     LazerPayResult.Cancel -> resultListener.onCancelled()
                     is LazerPayResult.Error -> resultListener.onError(lazerPayResult.exception)
-                    is LazerPayResult.Initialize -> {}
                     is LazerPayResult.Success -> resultListener.onSuccess(lazerPayResult.data)
                 }
             }
