@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 @Keep
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class SuccessEventData(
+internal data class SuccessEventData(
     val `data`: SuccessData,
     val type: String
 ) : Parcelable
@@ -54,8 +54,8 @@ data class Customer(
     val id: String?
 ) : Parcelable
 
-class Metadata
+internal class Metadata
 
-class PaymentButton
+internal class PaymentButton
 
-class PaymentLink
+internal class PaymentLink

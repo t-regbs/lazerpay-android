@@ -1,18 +1,18 @@
 package com.timilehinaregbesola.lazerpay.model
 
-enum class LazerPayEventType(val value: String) {
+internal enum class LazerPayEventType(val value: String) {
     close("ON_CLOSE"),
     fetch("ON_FETCH"),
     success("ON_SUCCESS"),
     copy("ON_COPY")
 }
 
-sealed class LazerPayEvent
+internal sealed class LazerPayEvent
 
-class CloseEvent : LazerPayEvent()
+internal class CloseEvent : LazerPayEvent()
 
-class FetchEvent(val data: InitializeData) : LazerPayEvent()
+internal class FetchEvent(val data: InitializeData) : LazerPayEvent()
 
-class CopyEvent : LazerPayEvent()
+internal class CopyEvent : LazerPayEvent()
 
-class SuccessEvent(val data: SuccessData) : LazerPayEvent()
+internal class SuccessEvent(val data: SuccessData) : LazerPayEvent()

@@ -30,7 +30,7 @@ import com.timilehinaregbesola.lazerpay.model.LazerPayHtml
 import com.timilehinaregbesola.lazerpay.model.LazerPayResult
 import com.timilehinaregbesola.lazerpay.model.SuccessEvent
 
-class LazerpayActivity : AppCompatActivity() {
+internal class LazerpayActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLazerpayBinding
     private val viewModel: LazerpayViewModel by viewModels()
 

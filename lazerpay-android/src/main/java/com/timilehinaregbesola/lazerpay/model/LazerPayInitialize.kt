@@ -6,14 +6,14 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class LazerPayInitialize(
+internal data class LazerPayInitialize(
     val `data`: InitializeData,
     val type: String
 ) : Parcelable
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class InitializeData(
+internal data class InitializeData(
 //    val `data`: List<Data>?,
     val message: String?,
     val status: String?,
@@ -22,7 +22,7 @@ data class InitializeData(
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class Data(
+internal data class Data(
     val address: String?,
     val blockchain: String?,
     val createdAt: String?,

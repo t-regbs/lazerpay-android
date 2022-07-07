@@ -2,7 +2,7 @@ package com.timilehinaregbesola.lazerpay.model
 
 import android.util.Base64
 
-class LazerPayHtml {
+internal class LazerPayHtml {
     fun buildLazerPayHtml(params: LazerPayData): String {
         val businessLogoString =
             if (params.businessLogo != null && params.businessLogo.isNotEmpty()) "businessLogo: \"${params.businessLogo}\"," else ""

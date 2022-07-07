@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class LazerPayData(
+internal data class LazerPayData(
     val publicKey: String,
     val name: String,
     val email: String,
