@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.timilehinaregbesola.lazerpay.LazerPayResultListener
 import com.timilehinaregbesola.lazerpay.LazerPaySdk
-import com.timilehinaregbesola.lazerpay.databinding.ActivityMainBinding
+import com.timilehinaregbesola.lazerpay.example.databinding.ActivityMainBinding
 import com.timilehinaregbesola.lazerpay.model.SuccessData
 
 class MainActivity : AppCompatActivity() {
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         lazerpayBuilder.apply {
-            reference("Kb8hV55l0435t354540")
+            reference("Kb8hV55l043t354540")
             businessLogo("https://securecdn.pymnts.com/wp-content/uploads/2021/12/stablecoins.jpg")
         }
         lazerPaySdk = lazerpayBuilder.build()
