@@ -24,6 +24,8 @@ coroutines = "1.6.3"
 test_junit = "4.13.2"
 ext_junit = "1.1.3"
 espresso = "3.4.0"
+mockito_android = "4.6.1"
+mockito_kotlin = "4.0.0"
 
 # Quality
 ktlint = "0.43.2"
@@ -52,6 +54,8 @@ coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", ve
 test_junit = { module = "junit:junit", version.ref = "test_junit" }
 test_ext_junit = { module = "androidx.test.ext:junit", version.ref = "ext_junit" }
 test_espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+test_mockito_kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito_kotlin" }
+test_mockito_android = { module = "org.mockito:mockito-android", version.ref = "mockito_android" }
 
 # Quality
 ktlint = { module = "com.pinterest:ktlint", version.ref = "ktlint" }

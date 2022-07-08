@@ -1,6 +1,7 @@
 package com.timilehinaregbesola.lazerpay.example
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.timilehinaregbesola.lazerpay.LazerPayResultListener
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                     "Transaction complete - Ref: ${result.reference}",
                     Toast.LENGTH_LONG
                 ).show()
+                Log.d("Success", result.toString())
             }
 
             override fun onError(exception: Throwable) {
@@ -58,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         lazerpayBuilder.apply {
-            reference("Kb8hV55l043t354540")
+            reference("Kb8hV535l03t354540")
             businessLogo("https://securecdn.pymnts.com/wp-content/uploads/2021/12/stablecoins.jpg")
         }
         lazerPaySdk = lazerpayBuilder.build()
