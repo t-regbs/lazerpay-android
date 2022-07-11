@@ -5,6 +5,26 @@ plugins {
     id("kotlin-parcelize")
 }
 
+buildscript {
+    extra.apply {
+        set("PUBLISH_GROUP_ID", "io.github.t-regbs")
+        set("PUBLISH_VERSION", "0.1.0")
+        set("PUBLISH_ARTIFACT_ID", "lazerpay-android")
+        set("PUBLISH_DESCRIPTION", "Lazerpay Android SDK")
+        set("PUBLISH_URL", "https://github.com/t-regbs/lazerpay-android")
+        set("PUBLISH_LICENSE_NAME", "Apache License")
+        set("PUBLISH_LICENSE_URL", "https://opensource.org/licenses/Apache-2.0")
+        set("PUBLISH_DEVELOPER_ID", "t-regbs")
+        set("PUBLISH_DEVELOPER_NAME", "Oluwatimilehin Aregbesola")
+        set("PUBLISH_DEVELOPER_EMAIL", "aregbestimi@gmail.com")
+        set("PUBLISH_SCM_CONNECTION", "scm:git:github.com/t-regbs/lazerpay-android.git")
+        set("PUBLISH_SCM_DEVELOPER_CONNECTION", "scm:git:ssh://github.com/t-regbs/lazerpay-android.git")
+        set("PUBLISH_SCM_URL", "https://github.com/t-regbs/lazerpay-android/tree/master")
+    }
+}
+
+apply("${rootProject.projectDir}/scripts/publish-module.gradle")
+
 android {
     defaultConfig {
         compileSdk = Integer.parseInt(libs.versions.android.compile.sdk.get())
