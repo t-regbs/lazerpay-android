@@ -104,8 +104,8 @@ dependencies {
 
 ## Building the Example Project
 
-1. Clone the repository.
-2. Import the project using Android Studio 
+1. Clone this repository.
+2. Open the project using Android Studio 
 3. Navigate to the `MainActivity.java` file
 4. Replace the public key in the LazerPaySdk.Builder initializer with your own 
 5. Replace the reference string in the lazerpayBuilder.apply closure with a unique string to avoid the `reference exists` error
