@@ -3,7 +3,12 @@
 Get paid in crypto from anywhere and withdraw instantly to your bank account, or invest your revenue to earn more with Lazerpay from inside an Android App. 
 
 ## ScreenShots
-
+<p float="left">
+<img src="https://github.com/t-regbs/lazerpay-android/blob/1Soyebo-readMe/images/LA3.jpeg?raw=true" width="200">
+<img src="https://github.com/t-regbs/lazerpay-android/blob/1Soyebo-readMe/images/LA4.jpeg?raw=true" width="200">
+<img src="https://github.com/t-regbs/lazerpay-android/blob/1Soyebo-readMe/images/LA2.jpeg?raw=true" width="200">
+<img src="https://github.com/t-regbs/lazerpay-android/blob/1Soyebo-readMe/images/LA1.jpg?raw=true" width="200">
+</p>
 
 ##  Installation
 
