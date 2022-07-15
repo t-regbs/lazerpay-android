@@ -36,7 +36,6 @@ dependencies {
 ```
 
 * Configure the LazerPaySDK with a `LazerPayResultListener` object that handles transaction events from the sdk instance : 
-
 ```kotlin
     val resultListener = object : LazerPayResultListener {
             override fun onSuccess(result: SuccessData) {
@@ -66,6 +65,7 @@ dependencies {
     }
 ```
 
+
 * Setup the LazerPaySDK.Builder initializer that creates an instance of the `LazerpaySDK`. This would contain all the necessary transaction parameters like name, email, amount and your lazerpayPublicKey: 
 
 ```kotlin
@@ -80,6 +80,7 @@ dependencies {
 
 ```
 
+
 * Include additional information such as your business logo and reference based on your specific use case: 
 
 ```kotlin 
@@ -89,17 +90,25 @@ dependencies {
     }
 ```
 
+
 * Build the LazerpaySdk.Builder instance and assign it to the lateint property that was declared at the top of the file like so: 
 
 ```kotlin
     lazerPaySdk = lazerpayBuilder.build()
 ```
 
+
+<br>
+
 * Finally initialise the sdk instance with the `LazerPayResultListener` object declared earlier: 
 
 ```kotlin
     lazerPaySdk.initialize(resultListener)
 ```
+
+> 🚨 Ensure that the **lazerPaySdk.initialize(resultListener)** function is called before the activity is started to avoid a Crash. Hence, it is best called within the onCreate() lifecycle method of your activity
+
+<br>
 
 * 🚀 Ultimately to present the LazerPaySDK view and start collecting payments, add the line below to the onClickListener of a button for example: 
 
