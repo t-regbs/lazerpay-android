@@ -111,6 +111,7 @@ dependencies {
 5. Replace the reference string in the lazerpayBuilder.apply closure with a unique string to avoid the `reference exists` error
 6. Build and run the project on your device or emulator
 
-## Contribution
+## Want to contribute?
+Feel free to create issues and pull requests. 🧑🏾‍🍳
 
 ## License
