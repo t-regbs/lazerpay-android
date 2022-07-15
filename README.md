@@ -24,7 +24,83 @@ dependencies {
 
 ## Getting Started
 
+* Declare a `LazerPaySdk` lateinit property at the very top of your activity or fragment like so: 
 
+```kotlin
+    private lateinit var lazerPaySdk: LazerPaySdk
+```
+
+* Configure the LazerPaySDK with a `LazerPayResultListener` object that handles transaction events from the sdk instance : 
+
+```kotlin
+    val resultListener = object : LazerPayResultListener {
+            override fun onSuccess(result: SuccessData) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Transaction complete - Ref: ${result.reference}",
+                    Toast.LENGTH_LONG
+                ).show()
+                Log.d("Success", result.toString())
+            }
+
+            override fun onError(exception: Throwable) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Transaction failed",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            override fun onCancelled() {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Transaction cancelled by user",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+    }
+```
+
+* Setup the LazerPaySDK.Builder initializer that creates an instance of the `LazerpaySDK`. This would contain all the necessary transaction parameters like name, email, amount and your lazerpayPublicKey: 
+
+```kotlin
+
+    val lazerpayBuilder = LazerPaySdk.Builder(
+        activity = this,
+        name = "Frankie De Jong",
+        email = "zuzuzeh@mail.com",
+        amount = "5000", // default currency is Naira (NGN)
+        publicKey = "pk_test_" // replace with your personal public key 
+    )
+
+```
+
+* Include additional information such as your business logo and reference based on your specific use case: 
+
+```kotlin 
+    lazerpayBuilder.apply {
+        reference("reference0") // ensure your reference is unique to every transaction
+        businessLogo("https://securecdn.pymnts.com/wp-content/uploads/2021/12/stablecoins.jpg")
+    }
+```
+
+* Build the LazerpaySdk.Builder instance and assign it to the lateint property that was declared at the top of the file like so: 
+
+```kotlin
+    lazerPaySdk = lazerpayBuilder.build()
+```
+
+* Finally initialise the sdk instance with the `LazerPayResultListener` object declared earlier: 
+
+```kotlin
+    lazerPaySdk.initialize(resultListener)
+```
+
+* 🚀 Ultimately to present the LazerPaySDK view and start collecting payments, add the line below to the onClickListener of a button for example: 
+
+```kotlin
+    lazerPaySdk.charge()
+```
 
 ## Building the Example Project
 
