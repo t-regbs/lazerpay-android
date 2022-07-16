@@ -72,23 +72,30 @@ dependencies {
 
     val lazerpayBuilder = LazerPaySdk.Builder(
         activity = this,
-        name = "Frankie De Jong",
-        email = "zuzuzeh@mail.com",
-        amount = "5000", // default currency is Naira (NGN)
-        publicKey = "pk_test_" // replace with your personal public key 
+        name = "Erik Ten Hag",
+        email = "eth@manutd.com",
+        amount = "50000000", // default currency is Naira (NGN)
+        publicKey = "pk_test_w3r3w1nningth3leagu3" // replace with your personal public key 
     )
 
 ```
 
 
-* Include additional information such as your business logo and reference based on your specific use case: 
+* Set optional parameters such as your business logo, transaction currency, metadata, reference based on your specific use case: 
 
 ```kotlin 
-    lazerpayBuilder.apply {
-        reference("reference0") // ensure your reference is unique to every transaction
-        businessLogo("https://securecdn.pymnts.com/wp-content/uploads/2021/12/stablecoins.jpg")
-    }
+     lazerpayBuilder.apply {
+            reference("for Frenki De Jong") // ensure it is unique to every transaction
+            businessLogo("https://securecdn.pymnts.com/wp-content/uploads/2021/12/stablecoins.jpg")
+            currency(LazerPayCurrency.USD) // defaults to NGN available currencies: LazerPayCurrency.USD, LazerPayCurrency.NGN
+            acceptPartialPayment(true) // default false 
+            metadata("Erik Ten Hag's tricky reds")
+     }
 ```
+
+> 💥 All parameters in the apply block have default values and so the apply block can be omitted all together if you have no parameters to set
+
+<br>
 
 
 * Build the LazerpaySdk.Builder instance and assign it to the lateint property that was declared at the top of the file like so: 
