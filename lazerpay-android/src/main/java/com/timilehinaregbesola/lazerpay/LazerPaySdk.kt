@@ -67,7 +67,7 @@ class LazerPaySdk private constructor(
         private var businessLogo: String? = null
         private var currency: LazerPayCurrency = LazerPayCurrency.NGN
         private var acceptPartialPayment: Boolean = false
-        private var reference: String? = null
+        private var reference: String? = ""
         private var metadata: String? = null
 
         fun activityResultRegistry(resultRegistry: ActivityResultRegistry): Builder {
