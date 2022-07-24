@@ -3,6 +3,7 @@ package com.timilehinaregbesola.lazerpay.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.webkit.JavascriptInterface
@@ -17,18 +18,19 @@ import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.timilehinaregbesola.lazerpay.common.exception.MissingWebViewException
+import com.timilehinaregbesola.lazerpay.common.exception.UnsupportedWebChannelException
+import com.timilehinaregbesola.lazerpay.common.model.CloseEvent
+import com.timilehinaregbesola.lazerpay.common.model.CopyEvent
+import com.timilehinaregbesola.lazerpay.common.model.FetchEvent
+import com.timilehinaregbesola.lazerpay.common.model.LazerPayEvent
+import com.timilehinaregbesola.lazerpay.common.model.LazerPayEventType
+import com.timilehinaregbesola.lazerpay.common.model.LazerPayHtml
+import com.timilehinaregbesola.lazerpay.common.model.SuccessEvent
 import com.timilehinaregbesola.lazerpay.databinding.ActivityLazerpayBinding
-import com.timilehinaregbesola.lazerpay.exception.MissingWebViewException
-import com.timilehinaregbesola.lazerpay.exception.UnsupportedWebChannelException
-import com.timilehinaregbesola.lazerpay.model.CloseEvent
-import com.timilehinaregbesola.lazerpay.model.CopyEvent
-import com.timilehinaregbesola.lazerpay.model.FetchEvent
 import com.timilehinaregbesola.lazerpay.model.LazerPayData
-import com.timilehinaregbesola.lazerpay.model.LazerPayEvent
-import com.timilehinaregbesola.lazerpay.model.LazerPayEventType
-import com.timilehinaregbesola.lazerpay.model.LazerPayHtml
 import com.timilehinaregbesola.lazerpay.model.LazerPayResult
-import com.timilehinaregbesola.lazerpay.model.SuccessEvent
+import com.timilehinaregbesola.lazerpay.model.Mapper
 
 internal class LazerpayActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLazerpayBinding
@@ -71,13 +73,15 @@ internal class LazerpayActivity : AppCompatActivity() {
 
         val data = intent.getParcelableExtra<LazerPayData>(EXTRA_DATA)
             ?: error("Lazerpay data not found")
-        webView.loadData(LazerPayHtml().buildLazerPayHtml(data), "text/html", "base64")
+        val unencodedHtml = LazerPayHtml().buildLazerPayHtml(Mapper().mapToCommonLazerPayData(data))
+        val unencodedStr = Base64.encodeToString(unencodedHtml.toByteArray(), Base64.NO_PADDING)
+        webView.loadData(unencodedStr, "text/html", "base64")
     }
 
     private fun handleCheckoutResponse(event: LazerPayEvent) {
         when (event) {
             is SuccessEvent -> {
-                val data = LazerPayResult.Success(event.data)
+                val data = LazerPayResult.Success(Mapper().mapFromCommonSuccessData(event.data))
                 viewModel.updateState(data)
             }
             is CloseEvent -> {

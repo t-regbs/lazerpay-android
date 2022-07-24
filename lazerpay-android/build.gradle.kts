@@ -57,7 +57,7 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":lazerpay-common"))
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.material)

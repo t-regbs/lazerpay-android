@@ -1,9 +1,5 @@
-package com.timilehinaregbesola.lazerpay.model
+package com.timilehinaregbesola.lazerpay.common.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
 data class LazerPayData(
     val publicKey: String,
     val name: String,
@@ -14,7 +10,7 @@ data class LazerPayData(
     val acceptPartialPayment: Boolean? = false,
     val reference: String? = "",
     val metadata: String? = null
-) : Parcelable
+)
 
 enum class LazerPayCurrency {
     NGN,

@@ -1,14 +1,13 @@
-package com.timilehinaregbesola.lazerpay.model
+package com.timilehinaregbesola.lazerpay.common.model
 
-import android.util.Base64
-
-internal class LazerPayHtml {
+class LazerPayHtml {
     fun buildLazerPayHtml(params: LazerPayData): String {
         val businessLogoString =
             if (params.businessLogo != null && params.businessLogo.isNotEmpty()) "businessLogo: \"${params.businessLogo}\"," else ""
         val metadataString =
             if (params.metadata != null && params.metadata.isNotEmpty()) "metadata: \"${params.metadata}\"" else "metadata: {}"
-        val unencodedHtml = """
+        //        return Base64.encodeToString(unencodedHtml.toByteArray(), Base64.NO_PADDING)
+        return """
             <!DOCTYPE html>
             <html lang="en">
             <head>
@@ -92,6 +91,5 @@ internal class LazerPayHtml {
             </body>
             </html>
         """.trimIndent()
-        return Base64.encodeToString(unencodedHtml.toByteArray(), Base64.NO_PADDING)
     }
 }

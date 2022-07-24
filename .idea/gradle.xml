@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/example" />
             <option value="$PROJECT_DIR$/lazerpay-android" />
+            <option value="$PROJECT_DIR$/lazerpay-common" />
           </set>
         </option>
       </GradleProjectSettings>

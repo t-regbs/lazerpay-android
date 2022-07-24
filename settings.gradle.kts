@@ -16,3 +16,4 @@ rootProject.name = "lazerpay-android"
 include(":example")
 enableFeaturePreview("VERSION_CATALOGS")
 include(":lazerpay-android")
+include(":lazerpay-common")
