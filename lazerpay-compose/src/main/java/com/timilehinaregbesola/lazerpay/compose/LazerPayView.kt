@@ -2,6 +2,8 @@ package com.timilehinaregbesola.lazerpay.compose
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.util.Base64
+import android.util.Log
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -44,7 +46,6 @@ fun LazerPayView(
             contentAlignment = Alignment.Center
         ) {
             var loadingState: LoadingState by remember { mutableStateOf(LoadingState.Initializing) }
-            var webView by remember { mutableStateOf<WebView?>(null) }
             var uri by remember { mutableStateOf(LazerPayHtml().buildLazerPayHtml(Mapper().mapToCommonLazerPayData(data))) }
             AndroidView(
                 factory = { context ->
@@ -80,11 +81,16 @@ fun LazerPayView(
                                 loadingState = LoadingState.Finished
                             }
                         }
-                    }.also { webView = it }
+                    }
                 },
                 modifier = modifier
             ) { view ->
-                view.loadData(uri, "text/html", "base64")
+                Log.d("LazerpayView", uri)
+                view.loadData(
+                    Base64.encodeToString(uri.toByteArray(), Base64.NO_PADDING),
+                    "text/html",
+                    "base64"
+                )
             }
             if (loadingState is LoadingState.Loading) {
                 CircularProgressIndicator(
