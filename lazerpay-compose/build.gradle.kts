@@ -6,11 +6,10 @@ plugins {
 }
 
 android {
-    compileSdk = 32
-
     defaultConfig {
-        minSdk = 21
-        targetSdk = 32
+        compileSdk = Integer.parseInt(libs.versions.android.compile.sdk.get())
+        minSdk = Integer.parseInt(libs.versions.android.min.sdk.get())
+        targetSdk = Integer.parseInt(libs.versions.android.target.sdk.get())
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -29,7 +28,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0"
+        kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler.get()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -43,12 +42,12 @@ android {
 dependencies {
 
     implementation(project(":lazerpay-common"))
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.compose.ui:ui:1.2.0-rc03")
-    implementation("androidx.compose.material:material:1.2.0-rc03")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.2.0-rc03")
-    implementation("androidx.appcompat:appcompat:1.4.2")
-    implementation("com.google.android.material:material:1.6.1")
+    implementation(libs.androidx.corektx)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.material)
     implementation(libs.moshi)
     implementation(libs.moshi.adapters)
     kapt(libs.moshi.codegen)
