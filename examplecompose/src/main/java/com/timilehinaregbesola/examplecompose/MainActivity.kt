@@ -2,6 +2,7 @@ package com.timilehinaregbesola.examplecompose
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -59,26 +60,26 @@ fun NavGraph() {
                         publicKey = "pk_test_LIfI1h8BvlW25UMxGQQCzgSula1MnrdVY7T5TcbOEKIh5uue36",
                         name = "Timi Regbs",
                         email = "regbs@mail.com",
-                        amount = "5000",
-                        reference = ""
+                        amount = "6000"
                     ),
                     onClose = {
                         scope.launch {
-                            scaffoldState.snackbarHostState.showSnackbar("closed")
                             navController.popBackStack()
+                            scaffoldState.snackbarHostState.showSnackbar("closed")
                         }
                     },
                     onError = { e ->
                         scope.launch {
-                            scaffoldState.snackbarHostState.showSnackbar("Error: $e")
                             navController.popBackStack()
+                            scaffoldState.snackbarHostState.showSnackbar("Error: $e")
                         }
                     },
-                    onSucess = {
-                        scope.launch {
-                            scaffoldState.snackbarHostState.showSnackbar("Success ${it.reference}")
-                            navController.popBackStack()
-                        }
+                    onSuccess = {
+                        navController.popBackStack()
+                        Log.d("onSuccess", it.reference.toString())
+//                        scope.launch {
+//                            scaffoldState.snackbarHostState.showSnackbar("Success ${it.reference}")
+//                        }
                     }
                 )
             }

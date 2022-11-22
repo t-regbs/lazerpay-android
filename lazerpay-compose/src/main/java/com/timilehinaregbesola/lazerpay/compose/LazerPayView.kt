@@ -3,7 +3,6 @@ package com.timilehinaregbesola.lazerpay.compose
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.util.Base64
-import android.util.Log
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -24,8 +23,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.webkit.WebViewCompat
+import androidx.webkit.WebViewFeature
+import com.timilehinaregbesola.lazerpay.common.exception.MissingWebViewException
+import com.timilehinaregbesola.lazerpay.common.exception.UnsupportedWebChannelException
 import com.timilehinaregbesola.lazerpay.common.model.LazerPayHtml
 import kotlinx.coroutines.launch
 
@@ -34,10 +38,16 @@ import kotlinx.coroutines.launch
 fun LazerPayView(
     modifier: Modifier = Modifier,
     data: LazerPayParams,
-    onSucess: (SuccessData) -> Unit,
+    onSuccess: (SuccessData) -> Unit,
     onError: (Exception) -> Unit,
     onClose: () -> Unit
 ) {
+    if (WebViewCompat.getCurrentWebViewPackage(LocalContext.current) == null) {
+        onError(MissingWebViewException())
+    }
+    if (!WebViewFeature.isFeatureSupported(WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL)) {
+        onError(UnsupportedWebChannelException())
+    }
     val state = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     Scaffold(scaffoldState = state) {
@@ -60,7 +70,7 @@ fun LazerPayView(
                             domStorageEnabled = true
                         }
                         addJavascriptInterface(
-                            JavaScriptInterface(onSucess, onError, onClose) {
+                            JavaScriptInterface(onSuccess, onError, onClose) {
                                 scope.launch {
                                     state.snackbarHostState.showSnackbar(
                                         message = "Copied!",
@@ -85,7 +95,7 @@ fun LazerPayView(
                 },
                 modifier = modifier
             ) { view ->
-                Log.d("LazerpayView", uri)
+//                Log.d("LazerpayView", uri)
                 view.loadData(
                     Base64.encodeToString(uri.toByteArray(), Base64.NO_PADDING),
                     "text/html",

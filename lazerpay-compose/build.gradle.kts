@@ -42,12 +42,16 @@ android {
 dependencies {
 
     implementation(project(":lazerpay-common"))
+    val composeBom = platform(libs.compose.bom)
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.material)
+    implementation(libs.androidx.webkit)
     implementation(libs.moshi)
     implementation(libs.moshi.adapters)
     kapt(libs.moshi.codegen)

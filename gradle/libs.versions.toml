@@ -14,7 +14,8 @@ corektx = "1.7.0"
 appcompat = "1.4.1"
 webkit = "1.4.0"
 activity = "1.4.0"
-compose = "1.2.0-rc03"
+#compose = "1.2.0-rc03"
+compose = "2022.10.00"
 
 # Moshi
 moshi = "1.13.0"
@@ -41,9 +42,10 @@ androidx_constraintlayout = { module = "androidx.constraintlayout:constraintlayo
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx_webkit = { module = "androidx.webkit:webkit", version.ref = "webkit" }
 androidx_activity_ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
-androidx_compose_ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-androidx_compose_ui_tooling_preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-androidx_compose_material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose_bom = { module = "androidx.compose:compose-bom", version.ref = "compose" }
+androidx_compose_ui = { module = "androidx.compose.ui:ui" }
+androidx_compose_ui_tooling_preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+androidx_compose_material = { module = "androidx.compose.material:material" }
 
 # Moshi
 moshi = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
