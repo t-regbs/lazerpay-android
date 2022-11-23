@@ -2,7 +2,6 @@ package com.timilehinaregbesola.examplecompose
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -75,11 +74,10 @@ fun NavGraph() {
                         }
                     },
                     onSuccess = {
-                        navController.popBackStack()
-                        Log.d("onSuccess", it.reference.toString())
-//                        scope.launch {
-//                            scaffoldState.snackbarHostState.showSnackbar("Success ${it.reference}")
-//                        }
+                        scope.launch {
+                            navController.popBackStack()
+                            scaffoldState.snackbarHostState.showSnackbar("Success ${it.reference}")
+                        }
                     }
                 )
             }

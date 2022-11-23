@@ -56,7 +56,7 @@ fun LazerPayView(
             contentAlignment = Alignment.Center
         ) {
             var loadingState: LoadingState by remember { mutableStateOf(LoadingState.Initializing) }
-            var uri by remember { mutableStateOf(LazerPayHtml().buildLazerPayHtml(Mapper().mapToCommonLazerPayData(data))) }
+            val uri by remember { mutableStateOf(LazerPayHtml().buildLazerPayHtml(Mapper().mapToCommonLazerPayData(data))) }
             AndroidView(
                 factory = { context ->
                     WebView(context).apply {

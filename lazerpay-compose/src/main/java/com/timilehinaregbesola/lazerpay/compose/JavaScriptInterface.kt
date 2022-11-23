@@ -19,6 +19,8 @@ class JavaScriptInterface(
     val onClose: () -> Unit,
     val onCopy: () -> Unit
 ) {
+    var isSuccessful = false
+
     @JavascriptInterface
     fun messageFromWeb(dataStr: String) {
         Log.i("Interface", dataStr)
@@ -40,7 +42,10 @@ class JavaScriptInterface(
             event?.let {
                 when (it) {
                     is SuccessEvent -> {
-                        onSucess(Mapper().mapFromCommonData(it.data))
+                        if (!isSuccessful) {
+                            onSucess(Mapper().mapFromCommonData(it.data))
+                            isSuccessful = true
+                        }
                     }
                     is CloseEvent -> {
                         onClose()
